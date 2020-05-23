@@ -1,0 +1,134 @@
+$ sh run_docker.sh sklearnapp    
+Sending build context to Docker daemon  3.919MB
+Step 1/9 : FROM python:3.6.8-stretch
+ ---> 48c06762acf0
+Step 2/9 : WORKDIR /app
+ ---> Using cache
+ ---> 516f35dfb073
+Step 3/9 : COPY . app.py /app/
+ ---> e02d0255c2fa
+Step 4/9 : COPY . requirements.txt /app/
+ ---> b998a5e6e1b1
+Step 5/9 : COPY . model_data/boston_housing_prediction.joblib /app/model_data/
+ ---> 18b42f2bbbb7
+Step 6/9 : RUN pip install --upgrade pip &&    pip install --trusted-host pypi.python.org -r requirements.txt
+ ---> Running in b43b9b577201
+Collecting pip
+  Downloading https://files.pythonhosted.org/packages/43/84/23ed6a1796480a6f1a2d38f2802901d078266bda38388954d01d3f2e821d/pip-20.1.1-py2.py3-none-any.whl (1.5MB)
+Installing collected packages: pip
+  Found existing installation: pip 19.1.1
+    Uninstalling pip-19.1.1:
+      Successfully uninstalled pip-19.1.1
+Successfully installed pip-20.1.1
+Collecting Click==7.0
+  Downloading Click-7.0-py2.py3-none-any.whl (81 kB)
+Collecting Flask==1.0.2
+  Downloading Flask-1.0.2-py2.py3-none-any.whl (91 kB)
+Collecting itsdangerous==1.1.0
+  Downloading itsdangerous-1.1.0-py2.py3-none-any.whl (16 kB)
+Collecting Jinja2==2.10.3
+  Downloading Jinja2-2.10.3-py2.py3-none-any.whl (125 kB)
+Collecting MarkupSafe==1.1.1
+  Downloading MarkupSafe-1.1.1-cp36-cp36m-manylinux1_x86_64.whl (27 kB)
+Collecting numpy==1.17.2
+  Downloading numpy-1.17.2-cp36-cp36m-manylinux1_x86_64.whl (20.4 MB)
+Collecting pandas==0.24.2
+  Downloading pandas-0.24.2-cp36-cp36m-manylinux1_x86_64.whl (10.1 MB)
+Collecting python-dateutil==2.8.0
+  Downloading python_dateutil-2.8.0-py2.py3-none-any.whl (226 kB)
+Collecting pytz==2019.3
+  Downloading pytz-2019.3-py2.py3-none-any.whl (509 kB)
+Collecting scikit-learn==0.20.3
+  Downloading scikit_learn-0.20.3-cp36-cp36m-manylinux1_x86_64.whl (5.4 MB)
+Collecting scipy==1.3.1
+  Downloading scipy-1.3.1-cp36-cp36m-manylinux1_x86_64.whl (25.2 MB)
+Collecting six==1.12.0
+  Downloading six-1.12.0-py2.py3-none-any.whl (10 kB)
+Collecting Werkzeug==0.16.0
+  Downloading Werkzeug-0.16.0-py2.py3-none-any.whl (327 kB)
+Collecting locust
+  Downloading locust-1.0.1-py3-none-any.whl (287 kB)
+Collecting pyzmq>=16.0.2
+  Downloading pyzmq-19.0.1-cp36-cp36m-manylinux1_x86_64.whl (1.1 MB)
+Collecting msgpack>=0.6.2
+  Downloading msgpack-1.0.0-cp36-cp36m-manylinux1_x86_64.whl (274 kB)
+Collecting ConfigArgParse>=1.0
+  Downloading ConfigArgParse-1.2.3.tar.gz (42 kB)
+Collecting gevent>=1.5.0
+  Downloading gevent-20.5.0-cp36-cp36m-manylinux2010_x86_64.whl (5.2 MB)
+Collecting Flask-BasicAuth>=0.2.0
+  Downloading Flask-BasicAuth-0.2.0.tar.gz (16 kB)
+Collecting psutil>=5.6.7
+  Downloading psutil-5.7.0.tar.gz (449 kB)
+Collecting requests>=2.9.1
+  Downloading requests-2.23.0-py2.py3-none-any.whl (58 kB)
+Collecting geventhttpclient-wheels==1.3.1.dev3
+  Downloading geventhttpclient_wheels-1.3.1.dev3-cp36-cp36m-manylinux2010_x86_64.whl (90 kB)
+Collecting greenlet>=0.4.14; platform_python_implementation == "CPython"
+  Downloading greenlet-0.4.15-cp36-cp36m-manylinux1_x86_64.whl (41 kB)
+Collecting chardet<4,>=3.0.2
+  Downloading chardet-3.0.4-py2.py3-none-any.whl (133 kB)
+Collecting certifi>=2017.4.17
+  Downloading certifi-2020.4.5.1-py2.py3-none-any.whl (157 kB)
+Collecting idna<3,>=2.5
+  Downloading idna-2.9-py2.py3-none-any.whl (58 kB)
+Collecting urllib3!=1.25.0,!=1.25.1,<1.26,>=1.21.1
+  Downloading urllib3-1.25.9-py2.py3-none-any.whl (126 kB)
+Building wheels for collected packages: ConfigArgParse, Flask-BasicAuth, psutil
+  Building wheel for ConfigArgParse (setup.py): started
+  Building wheel for ConfigArgParse (setup.py): finished with status 'done'
+  Created wheel for ConfigArgParse: filename=ConfigArgParse-1.2.3-py3-none-any.whl size=19330 sha256=2f9fa57ee422d29f3da3196fc3a18e78b0b642c021bebdd0917218e3879147d8
+  Stored in directory: /root/.cache/pip/wheels/ee/c1/ad/ab1d6fd3b6e32d4444fe79f88d8832689a0d3c3a74188051ea
+  Building wheel for Flask-BasicAuth (setup.py): started
+  Building wheel for Flask-BasicAuth (setup.py): finished with status 'done'
+  Created wheel for Flask-BasicAuth: filename=Flask_BasicAuth-0.2.0-py3-none-any.whl size=4227 sha256=495b3345c27ed2cce054fc3ebac2aa6fda58480e21afc990f51fd5075484faee
+  Stored in directory: /root/.cache/pip/wheels/c1/d1/c8/8907e9d50e80655218f9e50d91d3516310731063fbdd229f21
+  Building wheel for psutil (setup.py): started
+  Building wheel for psutil (setup.py): finished with status 'done'
+  Created wheel for psutil: filename=psutil-5.7.0-cp36-cp36m-linux_x86_64.whl size=272474 sha256=ccdbcddeaffa2960f2d73fd9828302c48eb3a2927be7669d911ccde4ceffd630
+  Stored in directory: /root/.cache/pip/wheels/a1/d9/f2/b5620c01e9b3e858c6877b1045fda5b115cf7df6490f883382
+Successfully built ConfigArgParse Flask-BasicAuth psutil
+Installing collected packages: Click, itsdangerous, MarkupSafe, Jinja2, Werkzeug, Flask, numpy, pytz, six, python-dateutil, pandas, scipy, scikit-learn, pyzmq, msgpack, ConfigArgParse, greenlet, gevent, Flask-BasicAuth, psutil, chardet, certifi, idna, urllib3, requests, geventhttpclient-wheels, locust
+Successfully installed Click-7.0 ConfigArgParse-1.2.3 Flask-1.0.2 Flask-BasicAuth-0.2.0 Jinja2-2.10.3 MarkupSafe-1.1.1 Werkzeug-0.16.0 certifi-2020.4.5.1 chardet-3.0.4 gevent-20.5.0 geventhttpclient-wheels-1.3.1.dev3 greenlet-0.4.15 idna-2.9 itsdangerous-1.1.0 locust-1.0.1 msgpack-1.0.0 numpy-1.17.2 pandas-0.24.2 psutil-5.7.0 python-dateutil-2.8.0 pytz-2019.3 pyzmq-19.0.1 requests-2.23.0 scikit-learn-0.20.3 scipy-1.3.1 six-1.12.0 urllib3-1.25.9
+Removing intermediate container b43b9b577201
+ ---> ead99249effc
+Step 7/9 : EXPOSE 80
+ ---> Running in 678c22d82376
+Removing intermediate container 678c22d82376
+ ---> be84e4ddd9ee
+Step 8/9 : CMD [ "python" ,"app.py"]
+ ---> Running in 6e27cb6fa81a
+Removing intermediate container 6e27cb6fa81a
+ ---> 22c1555b4991
+Step 9/9 : LABEL sklearnapp=
+ ---> Running in 6c991b0ff1c6
+Removing intermediate container 6c991b0ff1c6
+ ---> 0260af541af7
+Successfully built 0260af541af7
+Successfully tagged sklearnapp:latest
+REPOSITORY                                      TAG                 IMAGE ID            CREATED             SIZE
+sklearnapp                                      latest              0260af541af7        1 second ago        1.29GB
+xumingwang1992/udacitydevops-project4-sklearn   sklearnapp          36b59d0233ca        26 minutes ago      1.29GB
+<none>                                          <none>              cb7558e5b2c3        53 minutes ago      1.29GB
+[2020-05-23 01:14:50,118] INFO in app: Application Started
+[2020-05-23 01:14:50,176] INFO in app: Model Loaded !!
+ * Serving Flask app "app" (lazy loading)
+ * Environment: production
+   WARNING: Do not use the development server in a production environment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:8000/ (Press CTRL+C to quit)
+ * Restarting with stat
+[2020-05-23 01:14:51,224] INFO in app: Application Started
+[2020-05-23 01:14:51,283] INFO in app: Model Loaded !!
+ * Debugger is active!
+ * Debugger PIN: 212-008-689
+[2020-05-23 01:14:58,606] INFO in app: JSON payload: 
+{'CHAS': {'0': 0}, 'RM': {'0': 6.575}, 'TAX': {'0': 296.0}, 'PTRATIO': {'0': 15.3}, 'B': {'0': 396.9}, 'LSTAT': {'0': 4.98}}
+[2020-05-23 01:14:58,657] INFO in app: Inference payload DataFrame: 
+   CHAS     RM    TAX  PTRATIO      B  LSTAT
+0     0  6.575  296.0     15.3  396.9   4.98
+[2020-05-23 01:14:58,678] INFO in app: Scaling Payload: 
+   CHAS     RM    TAX  PTRATIO      B  LSTAT
+0     0  6.575  296.0     15.3  396.9   4.98
+172.17.0.1 - - [23/May/2020 01:14:58] "POST /predict HTTP/1.1" 200 -
