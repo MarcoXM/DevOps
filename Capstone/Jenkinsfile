@@ -1,0 +1,98 @@
+pipeline {
+	agent any
+	stages {
+
+		stage('Lint HTML') {
+            // linting the  index.html 
+			steps {
+				sh 'tidy -q -e *.html'
+			}
+		}
+		
+		stage('Build Docker Image') {
+			steps {
+				withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]){
+					sh '''
+						docker build -t personalwebsite .
+					'''
+				}
+			}
+		}
+
+		stage('Push Image To Dockerhub') {
+			steps {
+				withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]){
+					sh '''
+						docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+                        docker tag personalwebsite xumingwang1992/personalwebsite:latest
+						docker push xumingwang1992/personalwebsite
+					'''
+				}
+			}
+		}
+		// https://kubernetes.io/docs/tasks/tools/install-kubectl/ 
+		//  update aws cli 
+		// aws eks --region us-east-1 update-kubeconfig --name marcocapstonecluster
+		// https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html key password a
+		stage('Set current kubectl context') {
+			steps {
+				withAWS(region:'us-east-1', credentials:'ecr_credentials') {
+					sh "pip3 install update awscli"
+					sh "aws eks --region us-east-1 update-kubeconfig --name marcocapcluster"
+					sh '''
+						kubectl config use-context arn:aws:eks:us-east-1:399691565139:cluster/marcocapcluster
+					'''
+					sh "kubectl get nodes"
+            		sh "kubectl get pods"
+				}
+			}
+		}
+
+		stage('Deploy blue container') {
+			steps {
+				withAWS(region:'us-east-1', credentials:'ecr_credentials') {
+					sh '''
+						kubectl apply -f ./blue-container-config.json
+					'''
+				}
+			}
+		}
+
+		stage('Deploy green container') {
+			steps {
+				withAWS(region:'us-east-1', credentials:'ecr_credentials') {
+					sh '''
+						kubectl apply -f ./green-container-config.json
+					'''
+				}
+			}
+		}
+
+		stage('Create the service in the cluster, redirect to blue') {
+			steps {
+				withAWS(region:'us-east-1', credentials:'ecr_credentials') {
+					sh '''
+						kubectl apply -f ./blue-service.json
+					'''
+				}
+			}
+		}
+
+		stage('Wait user approve') {
+            steps {
+                input "Ready to redirect traffic to green?"
+            }
+        }
+
+		stage('Create the service in the cluster, redirect to green') {
+			steps {
+				withAWS(region:'us-east-1', credentials:'ecr_credentials') {
+					sh '''
+						kubectl apply -f ./green-service.json
+					'''
+				}
+			}
+		}
+
+	}
+}
